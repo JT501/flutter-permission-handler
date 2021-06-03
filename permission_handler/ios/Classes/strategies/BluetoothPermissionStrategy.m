@@ -43,7 +43,7 @@
         case CBManagerAuthorizationRestricted:
             return PermissionStatusRestricted;
         case CBManagerAuthorizationDenied:
-            return PermissionStatusDenied;
+            return PermissionStatusPermanentlyDenied;
         case CBManagerAuthorizationAllowedAlways:
             return PermissionStatusGranted;
     }
