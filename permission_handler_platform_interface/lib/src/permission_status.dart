@@ -18,9 +18,9 @@ enum PermissionStatus {
   /// *Only supported on iOS (iOS14+).*
   limited,
 
-  /// The user denied access to the requested feature and selected to never
-  /// again show a request for this permission. The user may still change the
-  /// permission status in the settings.
+  /// Permission to the requested feature is permanently denied, the permission
+  /// dialog will not be shown when requesting this permission. The user may
+  /// still change the permission status in the settings.
   /// *Only supported on Android.*
   permanentlyDenied,
 }
@@ -71,6 +71,9 @@ extension PermissionStatusGetters on PermissionStatus {
   /// again show a request for this permission. The user may still change the
   /// permission status in the settings.
   /// *Only supported on Android.*
+  ///
+  /// WARNING: This can only be determined AFTER requesting this permission.
+  /// Therefore make a `request` call first.
   bool get isPermanentlyDenied => this == PermissionStatus.permanentlyDenied;
 
   bool get isLimited => this == PermissionStatus.limited;

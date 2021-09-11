@@ -1,3 +1,46 @@
+## 8.1.6
+
+* Android: Fixed a `NullPointerException` when changing permissions in the Location Settings intent.
+
+## 8.1.5
+* Android: Fixed deprecation warnings/errors when `compileSdkVersion` was set to 31 (Android S/12).
+
+## 8.1.4+2
+
+* iOS: fixed memory error that occurred on iOS 12.2 and below (see issue [#638](https://github.com/Baseflow/flutter-permission-handler/issues/638)).
+
+## 8.1.4+1
+
+* Fix a bug where after allowing the `location` permission and requesting it again would lead to a memory error.
+
+## 8.1.4
+
+* Fix bug where requesting `locationAlways` permission sometimes returns `PermissionStatus.Denied` instead of `PermissionStatus.Granted`.
+
+## 8.1.3
+
+* Fix bug where `locationAlways` returns `PermanentlyDenied`;
+* Updated the `README.md` for requesting the `locationAlways` permission the correct way.
+
+## 8.1.2
+
+* Suppress deprecation warnings on iOS for code that specifically targets older iOS versions (see issue [#607](https://github.com/Baseflow/flutter-permission-handler/issues/607)). 
+
+## 8.1.1
+
+* Fixed deprecation issue when checking phone capabilities on iOS (see issue [#597](https://github.com/Baseflow/flutter-permission-handler/issues/597)).
+
+## 8.1.0
+
+* Added support for iOS 12+ Critical Alerts permission requesting.
+    * NOTE: This requires applying to Apple and recieving a special entitlement from them inorder to work. See [this article](https://medium.com/@shashidharyamsani/implementing-ios-critical-alerts-7d82b4bb5026) for an explination on how to use Critical Alerts.
+* Added support for Android M+ Access Notification Policy permission requesting (ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS).
+    * Note: This opens a general page in settings, not specific to the package. 
+
+## 8.0.1
+
+* Updated API documentation for the `PermissionStatus.permanentlyDenied` status.
+
 ## 8.0.0+2
 
 * Fix broken Podfile link noted at `8.0.0`.

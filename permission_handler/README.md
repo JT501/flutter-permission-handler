@@ -1,4 +1,4 @@
-[![pub package](https://img.shields.io/pub/v/permission_handler.svg)](https://pub.dartlang.org/packages/permission_handler) [![Build status](https://github.com/Baseflow/flutter-permission-handler/actions/workflows/app_facing_package.yaml/badge.svg?branch=master)](https://github.com/Baseflow/flutter-permission-handler/actions/workflows/app_facing_package.yaml) [![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://github.com/tenhobi/effective_dart) [![codecov](https://codecov.io/gh/Baseflow/flutter-permission-handler/branch/master/graph/badge.svg)](https://codecov.io/gh/Baseflow/flutter-permission-handler)
+[![pub package](https://img.shields.io/pub/v/permission_handler.svg)](https://pub.dartlang.org/packages/permission_handler) [![Build status](https://github.com/Baseflow/flutter-permission-handler/actions/workflows/permission_handler.yaml/badge.svg?branch=master)](https://github.com/Baseflow/flutter-permission-handler/actions/workflows/permission_handler.yaml) [![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://github.com/tenhobi/effective_dart) [![codecov](https://codecov.io/gh/Baseflow/flutter-permission-handler/branch/master/graph/badge.svg)](https://codecov.io/gh/Baseflow/flutter-permission-handler)
 
 On most operating systems, permissions aren't just granted to apps at install time.
 Rather, developers have to ask the user for permissions while the app is running.
@@ -110,7 +110,10 @@ You must list permission you want to use in your application :
            # 'PERMISSION_BLUETOOTH=1',
    
            ## dart: PermissionGroup.appTrackingTransparency
-           # 'PERMISSION_APP_TRACKING_TRANSPARENCY=1'
+           # 'PERMISSION_APP_TRACKING_TRANSPARENCY=1',
+   
+           ## dart: PermissionGroup.criticalAlerts
+           # 'PERMISSION_CRITICAL_ALERTS=1'
          ]
   
        end
@@ -140,6 +143,7 @@ You must list permission you want to use in your application :
    | PermissionGroup.sensors                                                                     | NSMotionUsageDescription                                                                                      | PERMISSION_SENSORS                   |
    | PermissionGroup.bluetooth                                                                   | NSBluetoothAlwaysUsageDescription, NSBluetoothPeripheralUsageDescription                                      | PERMISSION_BLUETOOTH                 |
    | PermissionGroup.appTrackingTransparency                                                     | NSUserTrackingUsageDescription                                                                                | PERMISSION_APP_TRACKING_TRANSPARENCY |   
+   | PermissionGroup.criticalAlerts                                                              | PermissionGroupCriticalAlerts                                                                                 | PERMISSION_CRITICAL_ALERTS           |
 4. Clean & Rebuild
 
 </details>
@@ -219,6 +223,11 @@ The following permissions will show no dialog, but will open the corresponding s
 - manageExternalStorage
 - systemAlertWindow
 - requestInstallPackages
+- accessNotificationPolicy
+
+The `locationAlways` permission can not be requested directly, the user has to request the `locationWhenInUse` permission first.
+Accepting this permission by clicking on the 'Allow While Using App' gives the user the possibility to request the `locationAlways` permission.
+This will then bring up another permission popup asking you to `Keep Only While Using` or to `Change To Always Allow`.
 
 ## Issues
 

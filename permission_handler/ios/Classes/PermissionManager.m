@@ -46,7 +46,7 @@
         int rawValue = rawNumberValue.intValue;
         PermissionGroup permission = (PermissionGroup) rawValue;
         
-        id <PermissionStrategy> permissionStrategy = [PermissionManager createPermissionStrategy:permission];
+        __block id <PermissionStrategy> permissionStrategy = [PermissionManager createPermissionStrategy:permission];
         [_strategyInstances addObject:permissionStrategy];
         
         
@@ -58,8 +58,13 @@
             
             if (requestQueue.count == 0) {
                 completion(permissionStatusResult);
-                return;
             }
+          
+            // Make sure `completion` is called before cleaning up the reference
+            // otherwise the `completion` block is also dereferenced on iOS 12 and
+            // below (this is most likely a bug in Objective-C which is solved in
+            // later versions of the runtime).
+            permissionStrategy = nil;
         }];
     }
 }
@@ -72,8 +77,11 @@
                                      result([[NSNumber alloc] initWithBool:success]);
                                  }];
     } else if (@available(iOS 8.0, *)) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         BOOL success = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
         result([[NSNumber alloc] initWithBool:success]);
+#pragma clang diagnostic pop
     } else {
         result(@false);    
     }
@@ -127,6 +135,8 @@
             return [BluetoothPermissionStrategy new];
         case PermissionGroupAppTrackingTransparency:
             return [AppTrackingTransparencyPermissionStrategy new];
+        case PermissionGroupCriticalAlerts:
+            return [CriticalAlertsPermissionStrategy new];
         default:
             return [UnknownPermissionStrategy new];
     }

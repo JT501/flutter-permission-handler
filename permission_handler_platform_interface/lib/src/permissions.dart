@@ -39,6 +39,11 @@ class Permission {
   ///   When running on Android < Q: Fine and Coarse Location
   ///   When running on Android Q and above: Background Location Permission
   /// iOS: CoreLocation - Always
+  ///   When requesting this permission the user needs to grant permission
+  ///   for the `locationWhenInUse` permission first, clicking on
+  ///   the `Àllow While Using App` option on the popup.
+  ///   After allowing the permission the user can request the `locationAlways`
+  ///   permission and can click on the `Change To Always Allow` option.
   static const locationAlways = PermissionWithService._(4);
 
   /// Android: Fine and Coarse Location
@@ -143,6 +148,15 @@ class Permission {
   ///websites.
   static const appTrackingTransparency = Permission._(25);
 
+  ///Android: Nothing
+  ///iOS: Notifications that override your ringer
+  static const criticalAlerts = Permission._(26);
+
+  ///Android: Allows the user to access the notification policy of the phone.
+  /// EX: Allows app to turn on and off do-not-disturb.
+  ///iOS: Nothing
+  static const accessNotificationPolicy = Permission._(27);
+
   /// Returns a list of all possible [PermissionGroup] values.
   static const List<Permission> values = <Permission>[
     calendar,
@@ -170,7 +184,9 @@ class Permission {
     manageExternalStorage,
     systemAlertWindow,
     requestInstallPackages,
-    appTrackingTransparency
+    appTrackingTransparency,
+    criticalAlerts,
+    accessNotificationPolicy,
   ];
 
   static const List<String> _names = <String>[
@@ -199,7 +215,9 @@ class Permission {
     'manageExternalStorage',
     'systemAlertWindow',
     'requestInstallPackages',
-    'appTrackingTransparency'
+    'appTrackingTransparency',
+    'criticalAlerts',
+    'accessNotificationPolicy',
   ];
 
   @override

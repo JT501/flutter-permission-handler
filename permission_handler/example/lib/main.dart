@@ -18,6 +18,7 @@ final MaterialColor themeMaterialColor =
 
 /// A Flutter application demonstrating the functionality of this plugin
 class PermissionHandlerWidget extends StatefulWidget {
+  /// Create a page containing the functionality of this plugin
   static ExamplePage createPage() {
     return ExamplePage(
         Icons.location_on, (context) => PermissionHandlerWidget());
@@ -44,14 +45,16 @@ class _PermissionHandlerWidgetState extends State<PermissionHandlerWidget> {
                       permission != Permission.activityRecognition &&
                       permission != Permission.manageExternalStorage &&
                       permission != Permission.systemAlertWindow &&
-                      permission != Permission.requestInstallPackages;
+                      permission != Permission.requestInstallPackages &&
+                      permission != Permission.accessNotificationPolicy;
                 } else {
                   return permission != Permission.unknown &&
                       permission != Permission.mediaLibrary &&
                       permission != Permission.photos &&
                       permission != Permission.photosAddOnly &&
                       permission != Permission.reminders &&
-                      permission != Permission.appTrackingTransparency;
+                      permission != Permission.appTrackingTransparency &&
+                      permission != Permission.criticalAlerts;
                 }
               })
               .map((permission) => PermissionWidget(permission))
@@ -60,8 +63,9 @@ class _PermissionHandlerWidgetState extends State<PermissionHandlerWidget> {
   }
 }
 
+/// Permission widget containing information about the passed [Permission]
 class PermissionWidget extends StatefulWidget {
-  /// Constructs a [PermissionWidget] for the supplied [Permission].
+  /// Constructs a [PermissionWidget] for the supplied [Permission]
   const PermissionWidget(this._permission);
 
   final Permission _permission;
@@ -112,23 +116,27 @@ class _PermissionState extends State<PermissionWidget> {
         _permissionStatus.toString(),
         style: TextStyle(color: getPermissionColor()),
       ),
-      trailing: IconButton(
-          icon: const Icon(
-            Icons.info,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            checkServiceStatus(context, _permission);
-          }),
+      trailing: (_permission is PermissionWithService)
+          ? IconButton(
+              icon: const Icon(
+                Icons.info,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                checkServiceStatus(
+                    context, _permission as PermissionWithService);
+              })
+          : null,
       onTap: () {
         requestPermission(_permission);
       },
     );
   }
 
-  void checkServiceStatus(BuildContext context, Permission permission) async {
+  void checkServiceStatus(
+      BuildContext context, PermissionWithService permission) async {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text((await permission.status).toString()),
+      content: Text((await permission.serviceStatus).toString()),
     ));
   }
 

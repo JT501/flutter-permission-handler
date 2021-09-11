@@ -1,3 +1,16 @@
+## 3.6.1
+
+* Updated `meta` dependency to version `^1.3.0`.
+* Updated documentation for the `locationAlways` permission
+
+## 3.6.0
+
+* Add support for iOS Critical alerts and Android Access Notification Policy.
+
+## 3.5.1
+
+* Updated API documentation for the `PermissionStatus.permanentlyDenied` status.
+
 ## 3.5.0
 
 * Added support for app tracking transparency permission.

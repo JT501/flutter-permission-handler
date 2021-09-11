@@ -37,6 +37,7 @@
         // don't do anything and continue requesting permissions
     } else if (status != PermissionStatusDenied) {
         completionHandler(status);
+        return;
     }
     
     _permissionStatusHandler = completionHandler;
@@ -81,7 +82,11 @@
     if (_permissionStatusHandler == nil || @(_requestedPermission) == nil) {
         return;
     }
-    
+
+    if ((_requestedPermission == PermissionGroupLocationAlways && status == kCLAuthorizationStatusAuthorizedWhenInUse)) {
+            return;
+    }
+
     PermissionStatus permissionStatus = [LocationPermissionStrategy
                                          determinePermissionStatus:_requestedPermission authorizationStatus:status];
     

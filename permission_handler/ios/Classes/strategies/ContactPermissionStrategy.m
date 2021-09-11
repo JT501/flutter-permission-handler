@@ -22,6 +22,7 @@
 
     if (status != PermissionStatusDenied) {
         completionHandler(status);
+        return;
     }
 
     if (@available(iOS 9.0, *)) {
@@ -47,6 +48,8 @@
         }
 
     } else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
 
         switch (status) {
@@ -58,6 +61,7 @@
                 return PermissionStatusPermanentlyDenied;
             case kABAuthorizationStatusAuthorized:
                 return PermissionStatusGranted;
+#pragma clang diagnostic pop
         }
     }
 
@@ -77,6 +81,8 @@
 }
 
 + (void)requestPermissionsFromAddressBook:(PermissionStatusHandler)completionHandler {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     ABAddressBookRequestAccessWithCompletion(ABAddressBookCreate(), ^(bool granted, CFErrorRef error) {
         if (granted) {
             completionHandler(PermissionStatusGranted);
@@ -84,6 +90,7 @@
             completionHandler(PermissionStatusPermanentlyDenied);
         }
     });
+#pragma clang diagnostic pop
 }
 @end
 
