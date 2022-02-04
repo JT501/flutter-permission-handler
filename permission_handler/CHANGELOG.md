@@ -1,3 +1,47 @@
+## 9.0.0
+
+* iOS: Bluetooth permission dialog now appears when requested instead of when the app is initialized.
+Note: Requesting Bluetooth status will also prompt the permission dialog (see issue [#591](https://github.com/Baseflow/flutter-permission-handler/issues/591)).
+
+## 8.3.0
+
+* Updated Android Gradle Plugin to 4.1.0 and Gradle Wrapper to 6.7 which is inline with the current Flutter stable version (Flutter 2.5.3).
+
+## 8.2.6
+
+* Fixed broken androidx migration link in the README.md.
+
+## 8.2.5
+
+* Fixed broken link in the README.md.
+
+## 8.2.4
+
+* Solved bug where output would log that there is no permission in manifest for BLUETOOTH_SCAN, BLUETOOTH_ADVERTISE and BLUETOOTH_CONNECT on Android 11 devices and lower(see issue [#691](https://github.com/Baseflow/flutter-permission-handler/issues/691)).
+
+## 8.2.3
+
+* iOS: Enhanced the `bluetooth` permission for iOS 13 and up, so the user gets prompted with the "bluetooth" permission dialog (see issue [#591](https://github.com/Baseflow/flutter-permission-handler/issues/591)).
+
+## 8.2.2
+
+* Updated the README.md to mention setting the `compileSdkVersion` to `31`;
+* Added an additional note to version 8.2.0 release notes to inform people to update the `compileSdkVersion`.
+
+## 8.2.1
+
+* Resolved an issue where checking permissions on pre Android M devices always resolved to `PermissionStatus.denied` (see issue [#60](https://github.com/Baseflow/flutter-permission-plugins/issues/60));
+* Updated the url_launcher dependency in the example App to `^6.0.12`.
+
+## 8.2.0
+
+> **IMPORTANT:** when updating to version 8.2.0 make sure to also set the `compileSdkVersion` in the `app/build.gradle` file to `31`.
+
+* Added support for the new Android 12 Bluetooth permissions: BLUETOOTH_SCAN, BLUETOOTH_ADVERTISE and BLUETOOTH_CONNECT.
+* Updated Android compile and target SDK to 31 (Android 12 (S)).
+* Updated Gradle and dependencies of Android project.
+* Updated applicationID of example app
+
 ## 8.1.6
 
 * Android: Fixed a `NullPointerException` when changing permissions in the Location Settings intent.
@@ -33,7 +77,7 @@
 ## 8.1.0
 
 * Added support for iOS 12+ Critical Alerts permission requesting.
-    * NOTE: This requires applying to Apple and recieving a special entitlement from them inorder to work. See [this article](https://medium.com/@shashidharyamsani/implementing-ios-critical-alerts-7d82b4bb5026) for an explination on how to use Critical Alerts.
+    * NOTE: This requires applying to Apple and receiving a special entitlement from them inorder to work. See [this article](https://medium.com/@shashidharyamsani/implementing-ios-critical-alerts-7d82b4bb5026) for an explination on how to use Critical Alerts.
 * Added support for Android M+ Access Notification Policy permission requesting (ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS).
     * Note: This opens a general page in settings, not specific to the package. 
 
